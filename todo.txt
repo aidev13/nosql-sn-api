@@ -1,5 +1,6 @@
 // implement express.js
 // implement mongoDB
+// implement Mongoose ODM
 // use a JS date library or use the native JS 'DATE' object to format timestamps:
 
         // below is some native JS 'Date' objects
