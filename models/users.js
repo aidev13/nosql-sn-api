@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+const { Schema, model } = require('mongoose')
 
 
 const usernameSchema = new Schema({
@@ -25,15 +25,23 @@ const usernameSchema = new Schema({
     // $: Asserts the end of the string.
 
     },
+    thoughts: [{
+        //         //thoughts
+        //             Array of _id values referencing the Thought model
+
+    }],
+    friends: {
+        //         //friends
+        //             Array of _id values referencing the User model (self-reference)
+
+    }
 
 })
 
-
-//         //thoughts
-//             Array of _id values referencing the Thought model
-
-//         //friends
-//             Array of _id values referencing the User model (self-reference)
-
 //         //Schema Settings
 //             Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+
+
+const Username = model('Username', usernameSchema)
+
+module.exports = Username;
