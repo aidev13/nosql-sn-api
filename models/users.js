@@ -2,39 +2,38 @@ const { Schema, model } = require('mongoose')
 
 //schema
 const usernameSchema = new Schema({
- 
+
     username: {
         type: String,
         unique: true,
         required: true,
         trim: true
-    }, 
+    },
     email: {
         type: String,
         unique: true,
         required: true,
         match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        
-// Explanation of the regular expression:
-    // ^: Asserts the start of the string.
-    // [^\s@]+: Matches one or more characters that are not whitespace or '@'.
-    // @: Matches the '@' character.
-    // [^\s@]+: Matches one or more characters that are not whitespace or '@'.
-    // \.: Matches the dot ('.') character (escaped with a backslash).
-    // [^\s@]+: Matches one or more characters that are not whitespace or '@'.
-    // $: Asserts the end of the string.
+
+        // Explanation of the regular expression:
+        // ^: Asserts the start of the string.
+        // [^\s@]+: Matches one or more characters that are not whitespace or '@'.
+        // @: Matches the '@' character.
+        // [^\s@]+: Matches one or more characters that are not whitespace or '@'.
+        // \.: Matches the dot ('.') character (escaped with a backslash).
+        // [^\s@]+: Matches one or more characters that are not whitespace or '@'.
+        // $: Asserts the end of the string.
 
     },
     thoughts: [{
-        //         //thoughts
-        //             Array of _id values referencing the Thought model
-
+    // Array of _id values referencing the Thought model
+        type: Schema.ObjectId,
+        ref: 'thoughts'
     }],
-    friends: {
-        //         //friends
-        //             Array of _id values referencing the User model (self-reference)
-
-    }
+    friends: [{
+        type: Schema.ObjectId,
+        ref: "users"
+    }],
 
 })
 

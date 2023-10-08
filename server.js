@@ -12,23 +12,35 @@ const dbName = 'social_db'
 //mongoose connection
 const connection = require('./config/connection')
 
+//import models
+const { Thoughts, Users } = require('./models')
+
 //mongo init
 const init = async () => {
-    await client.connect();
-    console.log("MongoDB Connected!");
-    const db = client.db(dbName);
-    const socialCollection = db.collection('social');
-    const socialData = await socialCollection.find().toArray();
+  await client.connect();
+  console.log("MongoDB Connected!");
+  const db = client.db(dbName);
+  const socialCollection = db.collection('social');
+  const socialData = await socialCollection.find().toArray();
 
-    console.log(socialData)
+  console.log(socialData)
 }
 
 init()
 
+
+// use '.create' to create and save data to DB
+Users.create({
+  username: 'Bob121',
+  email: 'bob121@hotmail.com'
+})
+
+console.log(Users)
+
 app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
-  
-  app.listen(port, () => {
-    console.log(`APP listening on port ${port}`)
-  })
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`APP listening on port ${port}`)
+})
