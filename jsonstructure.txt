@@ -1,0 +1,16 @@
+// To use for templates. For easy copy and paste.
+
+// THOUGHTS JSON //
+
+// get, post, put thoughts json
+{
+    "thoughtText": "",
+    "createdAt": "",
+    "username": "",
+    'reactions": ""
+}
+
+// delete by id thoughts json
+{
+    "_id": ""
+}

@@ -1,8 +1,8 @@
-const { Thoughts, Users } = require('../models')
+const { Users, Thoughts } = require('../models')
 const express = require('express')
 const router = express.Router()
 
-router.get('/getusers', async (req, res) => {
+router.get('/getallusers', async (req, res) => {
     try {
         const result = await Users.find({})
         res.json(result)
@@ -11,6 +11,7 @@ router.get('/getusers', async (req, res) => {
     }
 
 })
+
 
 // use '.create' to create and save data to DB
 

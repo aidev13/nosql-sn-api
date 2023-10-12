@@ -5,12 +5,9 @@ const { Thoughts, Users } = require('./models')
 // express connection
 const express = require('express')
 const app = express()
-const port = 3001
-const router = require('./routes/usersRoute')
+const PORT = 3001
+const router = require('./routes/userRoutes')
 
-//middleware
-app.use(express.json())
-app.use(router)
 
 //mongodb connection
 const { MongoClient } = require('mongodb')
@@ -34,16 +31,22 @@ mongoInit()
 
 //friend count
 const countInit = async () => {
-  const user = await Users.findOne()
+  const user = await Users.find({})
   console.log(user.friendCount)
 };
 countInit()
+
+//middleware
+const userRouter = require('./routes/userRoutes')
+const thoughtRouter = require('./routes/thoughtRoute')
+
+app.use('/user', userRouter)
+app.use('/thought', thoughtRouter)
 
 
 app.get('/', (req, res) => {
   res.send('This is the server.js page')
 })
-
-app.listen(port, () => {
-  console.log(`APP listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`APP listening on port ${PORT}`)
 })
