@@ -6,7 +6,7 @@ const { Thoughts, Users } = require('./models')
 const express = require('express')
 const app = express()
 const PORT = 3001
-const router = require('./routes/userRoutes')
+
 
 
 //mongodb connection
@@ -31,8 +31,8 @@ mongoInit()
 
 //friend count
 const countInit = async () => {
-  const user = await Users.find({})
-  console.log(user.friendCount)
+  const user = await Users.find()
+  console.log(user.length)
 };
 countInit()
 
