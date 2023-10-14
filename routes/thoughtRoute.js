@@ -15,47 +15,34 @@ router.get('/getall', async (req, res) => {
 
 //why does this not work in insomnia????? WTF
 router.post('/add', async (req, res) => {
-
-    const newThought = await Thoughts.create({
-        thoughtText: "Hello tester", 
-        createAt: "", 
-        username: "thisSucks101"
-    })
-    res.json(newThought)
-  });
-
-router.put('/update', async (req, res) => {
-
-})
-
-router.delete('/destory', async (req, res) => {
-
     try {
-        const result = await Thoughts.deleteOne()
-        res.json(result)
+        const newThought = await Thoughts.create(req.body)
+        res.json(newThought)
     } catch (err) {
+        res.status(500).json(err)
+    }
+
+});
+
+router.put('/update/:id', async (req, res) => {
+    const { id } = req.params
+    const updateData = req.body
+    console.log( updateData )
+    try {
+        const updateThought = await Thoughts.findByIdAndUpdate(id, updateData, {
+            new: true,
+          })
+          res.json(updateThought)
+        } catch (err) {
         res.status(500).json(err)
     }
 })
 
-// use '.create' to create and save data to DB
-
-// Thoughts.create({
-//   thoughtText: `There are two types of people in this world: Those who like Neil Diamond, and those who don't. My ex-wife loves him.`,
-//   createdAt: '',
-//   username: `Bob's baby steps`
-// })
-
-//projections for email only
-// Thoughts.find({username: 'Stacey'}, 'email').then(user => console.log(user))
-
-//projection to leave out data... use the "-" in sub-catagory
-// Thoughts.find()
-
-// Thoughts.findById()
-
-// Thoughts.findByIdAndDelete('6521fc829e9e89804d2e766d')
-//   .then((user => console.log(user)))
+router.delete('/destory/:id', async (req, res) => {
+    const { id } = req.params
+    await Thoughts.findByIdAndDelete( id )
+    res.json("Thought Deleted Successfully!")
+})
 
 
 

@@ -40,6 +40,7 @@ countInit()
 const userRouter = require('./routes/userRoutes')
 const thoughtRouter = require('./routes/thoughtRoute')
 
+app.use(express.json())
 app.use('/user', userRouter)
 app.use('/thought', thoughtRouter)
 
