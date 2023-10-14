@@ -1,35 +1,46 @@
-const { Users, Thoughts } = require('../models')
+const { Users } = require('../models')
 const express = require('express')
 const router = express.Router()
 
-router.get('/getallusers', async (req, res) => {
+router.get('/getall', async (req, res) => {
     try {
-        const result = await Users.find({})
+        const result = await Users.find()
         res.json(result)
+        console.log(result)
     } catch (err) {
         res.status(500).json(err)
     }
 
 })
 
+router.post('/add', async (req, res) => {
+    try {
+        const newUser = await Users.create(req.body)
+        res.json(newUser)
+    } catch (err) {
+        res.status(500).json(err)
+    }
 
-// use '.create' to create and save data to DB
+});
 
-// Users.create({
-//   username: 'Bob121',
-//   email: 'bob121@hotmail.com'
-// })
+router.put('/update/:id', async (req, res) => {
+    const { id } = req.params
+    const updateData = req.body
+    try {
+        const updateUser = await Users.findByIdAndUpdate(id, updateData, {
+            new: true,
+          })
+          res.json(updateUser)
+        } catch (err) {
+        res.status(500).json(err)
+    }
+})
 
-//projections for email only
-// Users.find({username: 'Stacey'}, 'email').then(user => console.log(user))
-
-//projection to leave out data... use the "-" in sub-catagory
-// Users.find({username: 'Stacey'}, '-email').then(user => console.log(user))
-
-// Users.findById({_id: "6521fbe2e5824f16fec94736"}).then(user => console.log(user))
-
-// Users.findByIdAndDelete('6521fc829e9e89804d2e766d')
-//   .then((user => console.log(user)))
+router.delete('/destory/:id', async (req, res) => {
+    const { id } = req.params
+    await Users.findByIdAndDelete( id )
+    res.json("User Deleted Successfully!")
+})
 
 
 

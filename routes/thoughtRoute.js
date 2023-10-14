@@ -1,4 +1,4 @@
-const Thoughts = require('../models/thoughts')
+const { Thoughts } = require('../models')
 const express = require('express')
 const router = express.Router()
 
