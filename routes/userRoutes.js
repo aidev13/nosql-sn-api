@@ -39,7 +39,7 @@ router.put('/update/:id', async (req, res) => {
 router.delete('/destory/:id', async (req, res) => {
     const { id } = req.params
     await Users.findByIdAndDelete( id )
-    res.json("User Deleted Successfully!")
+    res.json(`User ${id} has been deleted!`)
 })
 
 

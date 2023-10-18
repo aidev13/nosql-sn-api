@@ -2,10 +2,10 @@ const { Schema, model } = require('mongoose')
 const reactionSchema = require('./schema-only/reactions')
 
 // date and date formatting
-const date = new Date
-const timestamp = date.toDateString()
+// const date = new Date()
+// const timestamp = date.toDateString()
 
-console.log(timestamp)
+// console.log(timestamp)
 
 //schema
 const thoughtSchema = new Schema({
@@ -18,14 +18,17 @@ const thoughtSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: timestamp
+        default: Date.now,
         // TODO: Use a getter method to format the timestamp on query
+        get(date) {
+            return date?.toDateString()
+        }
     },
     username: {
         type: String,
         required: true
     },
-    reactions: [reactionSchema]
+    reactions: [ { $push: {reactions: reactionSchema} }]
 
     }, 
     {

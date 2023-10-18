@@ -20,6 +20,11 @@ const reactionSchema = new Schema({
         type: Date,
         defaut: Date.now(),
         //             Use a getter method to format the timestamp on query
+        get(date) {
+            console.log(date)
+            return date?.toDateString()
+
+        }
     }
     },
     {
